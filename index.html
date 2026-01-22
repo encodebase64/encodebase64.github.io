@@ -2,119 +2,314 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Base64 Encode / Decode</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Base64 Encode Decode Tool | URL Safe & File Converter Online</title>
+
+<meta name="description" content="Free online Base64 Encode Decode Tool. Encode text or files to Base64, decode Base64 instantly, and use URL-safe Base64 securely.">
+<meta name="keywords" content="Base64 Encode Decode, URL Safe Base64, File to Base64, Base64 Converter Online">
+<meta name="author" content="Base64 Tool">
+
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        background: #0f172a;
-        color: #e5e7eb;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-    }
+* {
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
 
-    .container {
-        background: #020617;
-        padding: 20px;
-        width: 90%;
-        max-width: 600px;
-        border-radius: 10px;
-        box-shadow: 0 0 20px rgba(0,0,0,0.6);
-    }
+body {
+    margin: 0;
+    background: #f4f7fb;
+    color: #333;
+    line-height: 1.6;
+}
 
-    h1 {
-        text-align: center;
-        margin-bottom: 15px;
-    }
+/* Header */
+header {
+    background: linear-gradient(135deg, #1d2671, #c33764);
+    color: #fff;
+    padding: 30px 15px;
+    text-align: center;
+}
 
-    textarea {
-        width: 100%;
-        height: 120px;
-        background: #020617;
-        color: #e5e7eb;
-        border: 1px solid #334155;
-        border-radius: 6px;
-        padding: 10px;
-        resize: none;
-        font-size: 14px;
-    }
+header h1 {
+    margin: 0;
+    font-size: 2.3rem;
+}
 
-    .buttons {
-        display: flex;
-        gap: 10px;
-        margin: 15px 0;
-    }
+header p {
+    opacity: 0.9;
+    margin-top: 8px;
+}
 
-    button {
-        flex: 1;
-        padding: 10px;
-        background: #2563eb;
-        color: white;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 14px;
-    }
+/* Layout */
+.container {
+    max-width: 1100px;
+    margin: auto;
+    padding: 35px 15px;
+}
 
-    button:hover {
-        background: #1d4ed8;
-    }
+/* Card */
+.card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 28px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    margin-bottom: 40px;
+}
 
-    .footer {
-        text-align: center;
-        font-size: 12px;
-        color: #94a3b8;
-        margin-top: 10px;
+.card h2 {
+    color: #1d2671;
+    margin-bottom: 15px;
+}
+
+/* Inputs */
+textarea, input[type="file"] {
+    width: 100%;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+}
+
+textarea {
+    min-height: 140px;
+    resize: vertical;
+}
+
+/* Buttons */
+.buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 18px 0;
+}
+
+button {
+    flex: 1;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    font-size: 15px;
+}
+
+.encode { background: #1d2671; }
+.decode { background: #c33764; }
+.copy { background: #28a745; }
+.clear { background: #6c757d; }
+
+/* Options */
+.options {
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+/* Content */
+.content h3 {
+    color: #1d2671;
+    margin-top: 28px;
+}
+
+.content p {
+    color: #555;
+}
+
+.content ul {
+    margin-left: 20px;
+}
+
+.content li {
+    margin-bottom: 8px;
+}
+
+/* Footer */
+footer {
+    background: #111;
+    color: #bbb;
+    text-align: center;
+    padding: 22px 12px;
+}
+
+footer p {
+    font-size: 14px;
+}
+
+/* Responsive */
+@media(max-width: 600px) {
+    header h1 {
+        font-size: 1.9rem;
     }
+}
 </style>
 </head>
+
 <body>
 
+<header>
+    <h1>Base64 Encode Decode Tool</h1>
+    <p>Encode, Decode, URL-Safe Base64 & File to Base64 Converter</p>
+</header>
+
 <div class="container">
-    <h1>Base64 Encode / Decode</h1>
 
-    <textarea id="input" placeholder="Enter text here..."></textarea>
+<!-- Tool -->
+<div class="card">
+<h2>Base64 Encoder & Decoder</h2>
 
-    <div class="buttons">
-        <button onclick="encode()">Encode</button>
-        <button onclick="decode()">Decode</button>
-        <button onclick="clearText()">Clear</button>
-    </div>
-
-    <textarea id="output" placeholder="Result..." readonly></textarea>
-
-    <div class="footer">
-        Base64 Encoder / Decoder
-    </div>
+<div class="options">
+<label>
+<input type="checkbox" id="urlSafe"> Enable URL-Safe Base64
+</label>
 </div>
 
+<textarea id="input" placeholder="Enter text or Base64 string here..."></textarea>
+
+<div class="buttons">
+<button class="encode" onclick="encode()">Encode</button>
+<button class="decode" onclick="decode()">Decode</button>
+<button class="copy" onclick="copyText()">Copy</button>
+<button class="clear" onclick="clearAll()">Clear</button>
+</div>
+
+<textarea id="output" placeholder="Output will appear here..." readonly></textarea>
+</div>
+
+<!-- File Converter -->
+<div class="card">
+<h2>File to Base64 Converter</h2>
+<input type="file" id="fileInput">
+<p id="fileInfo"></p>
+<textarea id="fileOutput" placeholder="Base64 output of the uploaded file..." readonly></textarea>
+</div>
+
+<!-- CONTENT SECTION -->
+<div class="card content">
+
+<h3>What Is Base64 Encoding?</h3>
+<p>
+<a href="https://base64encode.dev/">Base64 Encode</a> is a technique used to convert binary data into a readable text format using a fixed set of 64 ASCII characters.
+It is commonly used to safely transmit data through systems that only support text, such as URLs, emails, HTTP headers, and APIs.
+</p>
+
+<h3>What Is Base64 Decoding?</h3>
+<p>
+Base64 decoding is the reverse process of encoding. It converts a Base64-encoded string back into its original readable or binary format.
+Decoding is required whenever encoded data needs to be restored for use.
+</p>
+
+<h3>Why Is Base64 Encoding Used?</h3>
+<ul>
+<li>Transmit binary data over text-based protocols</li>
+<li>Embed images or files in HTML and CSS</li>
+<li>Send files via APIs and JSON</li>
+<li>Prevent data corruption during transmission</li>
+</ul>
+
+<h3>What Is URL-Safe Base64?</h3>
+<p>
+URL-Safe Base64 is a modified version of Base64 encoding designed for URLs and query parameters.
+It replaces <strong>+</strong> with <strong>-</strong>, <strong>/</strong> with <strong>_</strong>, and removes padding characters to ensure URL compatibility.
+</p>
+
+<h3>File to Base64 Conversion Explained</h3>
+<p>
+File to Base64 conversion converts files such as images, PDFs, and documents into a Base64 string.
+This allows files to be sent as plain text data inside APIs or embedded directly into web pages.
+</p>
+
+<h3>Is Base64 Secure?</h3>
+<p>
+Base64 is not encryption. It does not provide security or data protection.
+Anyone can decode Base64 easily. For security, encryption must be applied before encoding.
+</p>
+
+<h3>Does Base64 Increase Data Size?</h3>
+<p>
+Yes. Base64 encoding increases data size by approximately 33% because binary data is converted into a text representation.
+</p>
+
+<h3>Who Uses Base64 Encode Decode Tools?</h3>
+<ul>
+<li>Web & Backend Developers</li>
+<li>API & Mobile App Developers</li>
+<li>Cybersecurity Professionals</li>
+<li>QA Testers & Students</li>
+</ul>
+
+<h3>Frequently Asked Questions</h3>
+
+<p><strong>Is Base64 reversible?</strong><br>
+Yes, Base64 encoding is fully reversible through decoding.</p>
+
+<p><strong>Can Base64 encode any file?</strong><br>
+Yes, any binary file can be converted to Base64.</p>
+
+<p><strong>Is Base64 compression?</strong><br>
+No, Base64 increases file size and does not compress data.</p>
+
+</div>
+
+</div>
+
+<footer>
+<p>© 2026 base64encode.dev</p>
+</footer>
+
 <script>
-    function encode() {
-        const input = document.getElementById("input").value;
-        try {
-            const encoded = btoa(unescape(encodeURIComponent(input)));
-            document.getElementById("output").value = encoded;
-        } catch (e) {
-            document.getElementById("output").value = "Encoding error!";
-        }
-    }
+const input = document.getElementById("input");
+const output = document.getElementById("output");
+const urlSafe = document.getElementById("urlSafe");
 
-    function decode() {
-        const input = document.getElementById("input").value;
-        try {
-            const decoded = decodeURIComponent(escape(atob(input)));
-            document.getElementById("output").value = decoded;
-        } catch (e) {
-            document.getElementById("output").value = "Invalid Base64 string!";
-        }
+function encode() {
+    if (!input.value) return alert("Please enter text to encode.");
+    let encoded = btoa(unescape(encodeURIComponent(input.value)));
+    if (urlSafe.checked) {
+        encoded = encoded.replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
     }
+    output.value = encoded;
+}
 
-    function clearText() {
-        document.getElementById("input").value = "";
-        document.getElementById("output").value = "";
+function decode() {
+    if (!input.value) return alert("Please enter Base64 to decode.");
+    try {
+        let data = input.value;
+        if (urlSafe.checked) {
+            data = data.replace(/-/g, "+").replace(/_/g, "/");
+            while (data.length % 4) data += "=";
+        }
+        output.value = decodeURIComponent(escape(atob(data)));
+    } catch {
+        alert("Invalid Base64 string.");
     }
+}
+
+function copyText() {
+    if (!output.value) return;
+    output.select();
+    document.execCommand("copy");
+    alert("Copied to clipboard!");
+}
+
+function clearAll() {
+    input.value = "";
+    output.value = "";
+}
+
+/* File to Base64 */
+document.getElementById("fileInput").addEventListener("change", function() {
+    const file = this.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function() {
+        document.getElementById("fileOutput").value =
+            reader.result.split(",")[1];
+        document.getElementById("fileInfo").innerText =
+            `File: ${file.name} (${Math.round(file.size / 1024)} KB)`;
+    };
+    reader.readAsDataURL(file);
+});
 </script>
 
 </body>
